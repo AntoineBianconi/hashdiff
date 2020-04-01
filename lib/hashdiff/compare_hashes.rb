@@ -20,6 +20,10 @@ module Hashdiff
           obj2_keys = obj2_keys.map { |k| k.is_a?(Symbol) ? k.to_s : k }
         end
 
+        if opts[:delete_keys]
+          opts[:delete_keys].each{|k| obj1_keys.delete(k); obj2_keys.delete(k); }
+        end
+
         added_keys = (obj2_keys - obj1_keys).sort_by(&:to_s)
         common_keys = (obj1_keys & obj2_keys).sort_by(&:to_s)
         deleted_keys = (obj1_keys - obj2_keys).sort_by(&:to_s)
